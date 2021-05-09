@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Update Task</title>
+{% endblock %}
+
+{% block body %}
+<center>
+<h1>任务更新</h1>
+<div style="width: 50%">
+    <form action="/update/{{task.id}}" method="post">
+        <div class="input-group mb-3">
+        <input type="text" name="content" class="form-control" value="{{task.content}}" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-dark" type="submit">更新任务</button>
+        </div>
+        </div>
+    </form>
+</div>
+</center>
+{% endblock %}

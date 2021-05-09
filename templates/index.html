@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task Master</title>
+{% endblock %}
+
+{% block body %}
+<center>
+<div class="content" style="width: 70%">
+<h1>任务管理</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>任务</th>
+            <th>添加时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            {% if task.completed == 0 %}
+            <td>{{task.content}}</td>
+            <td>{{task.date_created.date()}}</td>
+            {% endif %}
+            {% if task.completed == 1 %}
+            <td style="color: green"><i class="fa fa-check-square" ></i> {{task.content}}</td>
+            <td style="color: green">{{task.date_created.date()}}</td>
+            {% endif %}
+            <td>
+                <a class="btn btn-danger" href="/delete/{{task.id}}" role="button">删除</a>
+                <a class="btn btn-primary" href="/update/{{task.id}}" role="button">更新</a>
+                {% if task.completed == 0 %}
+                <a class="btn btn-success" href="/complete/{{task.id}}" role="button">完成</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<hr/>
+<div style="width: 70%">
+    <form action="/" method="post">
+        <div class="input-group mb-3">
+        <input type="text" name="content" class="form-control" placeholder="新增任务" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-dark" type="submit">添加任务</button>
+        </div>
+        </div>
+    </form>
+</div>
+{% if tasks|length < 1 %}
+    <h5 style="color: orange">任务清单为空，在上面添加任务!</h5>
+{% endif %}
+</center>
+{% endblock %}
