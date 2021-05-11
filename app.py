@@ -34,7 +34,7 @@ def index():
                 db.session.commit()
             return redirect('/')
         except:
-            return 'There was an issue adding your task'
+            return '添加任务失败'
 
 # 获取页面传递的数据id,删除对应的对象,执行操作成功后重定向到 / 显示数据
 @app.route('/delete/<int:id>')
@@ -46,7 +46,7 @@ def delete(id):
         db.session.commit()
         return redirect('/')
     except:
-        return "There was some problem deleting task"
+        return "删除任务失败"
 
 # GET请求时update.html页面获取传入的id显示task content属性,
 @app.route('/update/<int:id>', methods = ['POST', 'GET'])
@@ -63,7 +63,7 @@ def update(id):
             db.session.commit()
             return redirect('/')
         except:
-            return "There was some problem updating task"
+            return "更新任务失败"
 
 # 修改task complete属性的值为完成状态（1）,重定向值 / 显示数据
 @app.route('/complete/<int:id>')
@@ -74,7 +74,7 @@ def complete(id):
         db.session.commit()
         return redirect('/')
     except:
-        return "There was some problem completing task"
+        return "修改任务状态失败"
 
 
 
