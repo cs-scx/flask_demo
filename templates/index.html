@@ -1,3 +1,4 @@
+<!-- 继承自base.html页面 替换其中的head部分和body部分-->
 {% extends 'base.html' %}
 
 {% block head %}
@@ -17,19 +18,25 @@
         </tr>
     </thead>
     <tbody>
+        <!-- 接收来自app.py的数据tasks遍历数据显，并显示在页面上 -->
         {% for task in tasks %}
         <tr>
+            <!-- 若task的状态为未完成，显示默认样式 -->
             {% if task.completed == 0 %}
             <td>{{task.content}}</td>
             <td>{{task.date_created.date()}}</td>
             {% endif %}
+
+            <!-- 若task的状态为完成，显示完成时的样式 -->
             {% if task.completed == 1 %}
             <td style="color: green"><i class="fa fa-check-square" ></i> {{task.content}}</td>
             <td style="color: green">{{task.date_created.date()}}</td>
             {% endif %}
+            <!-- 操作接口,链接中包含task的id用于后续操作 -->
             <td>
                 <a class="btn btn-danger" href="/delete/{{task.id}}" role="button">删除</a>
                 <a class="btn btn-primary" href="/update/{{task.id}}" role="button">更新</a>
+                <!-- 当task的状态是未完成时，才显示以下按钮-->
                 {% if task.completed == 0 %}
                 <a class="btn btn-success" href="/complete/{{task.id}}" role="button">完成</a>
                 {% endif %}
@@ -40,6 +47,7 @@
 </table>
 </div>
 <hr/>
+<!-- 添加新的task -->
 <div style="width: 70%">
     <form action="/" method="post">
         <div class="input-group mb-3">
@@ -50,6 +58,8 @@
         </div>
     </form>
 </div>
+
+<!-- 如果获取的tasks中没有数据，显示以下内容，提示增加task -->
 {% if tasks|length < 1 %}
     <h5 style="color: orange">任务清单为空，在上面添加任务!</h5>
 {% endif %}
